@@ -1,0 +1,5 @@
+sources/app/screens/scr_menu_game.cpp:190:6:void update_menu_screen_chosse()	0	static
+sources/app/screens/scr_menu_game.cpp:203:6:void screen_tran_menu()	0	static
+sources/app/screens/scr_menu_game.cpp:305:1:cpp)	0	static
+sources/app/screens/scr_menu_game.cpp:140:6:void view_scr_menu_game()	56	static
+sources/app/screens/scr_menu_game.cpp:223:6:void scr_menu_game_handle(ak_msg_t*)	16	static

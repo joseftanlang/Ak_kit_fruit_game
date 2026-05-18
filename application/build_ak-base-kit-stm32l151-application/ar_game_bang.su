@@ -1,0 +1,1 @@
+sources/app/game/archery_game/ar_game_bang.cpp:40:6:void ar_game_bang_handle(ak_msg_t*)	16	static
