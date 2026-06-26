@@ -1,10 +1,19 @@
 # AKKit Fruit Game - STM32L Embedded Game System
 
+<div align="center">
+  <a href="https://github.com/user-attachments/assets/ce27b314-382a-4511-a2dd-3ec7f697573fc">
+    <video
+      src="https://github.com/user-attachments/assets/ce27b314-382a-4511-a2dd-3ec7f697573fc"
+      controls
+    ></video>
+  </a>
+</div>
+
 A sophisticated embedded game system running on the STM32L151CBT6 microcontroller, featuring an interactive fruit catching game and chart-based games with a custom LCD display driver and wireless networking capabilities.
 
 ---
-
-## 📋 Table of Contents
+ 
+## Table of Contents
 
 - [Overview](#overview)
 - [Features](#features)
@@ -13,18 +22,12 @@ A sophisticated embedded game system running on the STM32L151CBT6 microcontrolle
 - [Getting Started](#getting-started)
 - [Build Instructions](#build-instructions)
 - [Programming & Flashing](#programming--flashing)
-- [Project Structure](#project-structure)
-- [Game Modules](#game-modules)
-- [Development](#development)
-- [Troubleshooting](#troubleshooting)
-- [License](#license)
-- [Game Sample](#game-sampling)
 - [Additional Resources](#additional-resources)
 - [License](#license)
 
 ---
 
-## 🎮 Overview
+## Overview
 
 The AKKit Fruit Game is a cutting-edge embedded systems project that combines game development with real-time embedded programming on the ARM Cortex-M3 architecture. The system provides an interactive gaming experience with LCD graphics rendering, button input handling, buzzer audio feedback, and wireless networking capabilities.
 
@@ -37,8 +40,43 @@ The AKKit Fruit Game is a cutting-edge embedded systems project that combines ga
 - Modular screen/UI framework with multiple game screens
 
 ---
+## Sequence Diagram
 
-## ✨ Features
+
+## Game Screen
+
+<div align="center">
+  <img src="resources/images/fruit_startup.png" alt="startup" width="512" height="256" />
+</div>
+
+Once you boot up this would be the initial screnen. Where the AK would be gliding form left to center.
+
+<div align="center">
+  <img src="resources/images/fruit_menu.png" alt="menu" width="512" height="256" />
+</div>
+
+Once you enter the menu page you would be able to choose one of the three options.
+
+<div align="center">
+  <img src="resources/images/fruit_chart.png" alt="chart" width="512" height="256" />
+</div>
+
+This would show you the top 3 score if any.
+
+<div align="center">
+  <img src="resources/images/fruit_setting.png" alt="setting" width="512" height="256" />
+</div>
+
+This is the seting page where you can have a adjust the speed and the sound.
+
+<div align="center">
+  <img src="resources/images/fruit_playgame.png" alt="fruitgame" width="512" height="256" />
+</div>
+ 
+This is the playing area of the catch fruit game.
+
+
+## Features
 
 ### Core Gaming Features
 - **Multiple Game Modes**: Fruit catching game, chart-based games, and extensible framework for additional games
@@ -63,7 +101,7 @@ The AKKit Fruit Game is a cutting-edge embedded systems project that combines ga
 
 ---
 
-## 🔧 Hardware Specifications
+## Hardware Specifications
 
 ### Microcontroller
 | Specification | Value |
@@ -91,7 +129,7 @@ The AKKit Fruit Game is a cutting-edge embedded systems project that combines ga
 
 ---
 
-## 🏗️ Project Architecture
+## Project Architecture
 
 ### System Overview
 ```
@@ -135,7 +173,7 @@ The system implements multiple concurrent tasks:
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - **ARM GCC Toolchain**: gcc-arm-none-eabi (tested with 10.3-2021.10)
@@ -182,7 +220,7 @@ SYS_CONSOLE_BAUDRATE = 115200
 
 ---
 
-## 🔨 Build Instructions
+## Build Instructions
 
 ### Building the Application
 
@@ -224,7 +262,7 @@ After successful compilation, you'll find:
 
 ---
 
-## 📝 Programming & Flashing
+## Programming & Flashing
 
 ### Method 1: OpenOCD + GDB (Recommended for Development - Windows)
 
@@ -273,207 +311,6 @@ screen /dev/ttyUSB0 115200
 # or
 picocom -b 115200 /dev/ttyUSB0
 ```
-
-
-## 🎯 Game Modules
-
-### Fruit Catching Game
-**An interactive fruit catching game featuring:**
-- **Falling Fruits**: 6 different fruits (3 good, 3 bad) that spawn and fall every 110ms
-- **Basket Control**: Player moves the basket left/right using button controls
-- **Scoring System**: +10 point for catching good fruits, -5 point for bad fruits
-- **Countdown Timer**: 30-second gameplay timer with real-time display
-- **Collision Detection**: Accurate detection of fruit-basket collisions
-- **Game State**: Score tracking, caught fruit tracking, and game-over detection
-
-**Game Mechanics**:
-- Fruits fall continuously from the top of the screen
-- Player controls a basket at the bottom using left/right buttons
-- Good fruits (3 types) increase score when caught
-- Bad fruits (3 types) decrease score when caught
-- Game ends when the 30-second countdown reaches zero
-
-**Key Files**:
-- [app/screens/scr_fruit_game.cpp](application/sources/app/screens/scr_fruit_game.cpp) - Main fruit game logic
-- [app/screens/scr_fruit_game.h](application/sources/app/screens/scr_fruit_game.h) - Game definitions and structures
-
-### Chart Game
-Analytics-based games with visual data representation:
-- **Dynamic Data Display**: Real-time chart rendering
-- **User Interaction**: Button-based input handling
-- **Scoring System**: Points based on game mechanics
-
-**Key Files**:
-- [app/screens/scr_charts_game.cpp](application/sources/app/screens/scr_charts_game.cpp)
-
-
-#### GDB Debugging
-```bash
-cd application/
-arm-none-eabi-gdb build_ak-base-kit-stm32l151-application/ak-base-kit-stm32l151-application.axf
-(gdb) target remote localhost:3333
-(gdb) break app.cpp:main
-(gdb) continue
-(gdb) step
-(gdb) print variable_name
-```
-
-#### Stack Usage Analysis
-Check `.su` files in build directory:
-```bash
-cat build_ak-base-kit-stm32l151-application/app.su | sort -k2 -rn | head -20
-```
-
-### Memory Analysis
-
-**Check Binary Size**:
-```bash
-arm-none-eabi-size build_ak-base-kit-stm32l151-application/ak-base-kit-stm32l151-application.axf
-```
-
-**Memory Constraints**:
-- Flash: 128 KB (Boot: 12KB, App: 116KB)
-- SRAM: 16 KB
-
-**Optimization Tips**:
-- Use `-Os` flag for code size reduction
-- Avoid large stack allocations
-- Use const for read-only data
-
----
-
-## 🐛 Troubleshooting
-
-### Build Issues
-
-**Problem**: "arm-none-eabi-gcc not found"
-```bash
-# Solution: Verify toolchain path in Makefile
-which arm-none-eabi-gcc
-# If not found, install or update GCC_PATH in Makefile
-```
-
-**Problem**: Build fails with "permission denied"
-```bash
-# Solution: Check file permissions
-chmod +x application/Makefile
-cd application && make clean && make
-```
-
-**Problem**: Linker error - "undefined reference to ..."
-```bash
-# Solution: Ensure all source files are in Makefile.mk
-# Edit: application/sources/app/Makefile.mk
-# Add missing .cpp files to SOURCES list
-```
-
-### Flashing Issues
-
-**Problem**: Device not detected by OpenOCD
-```bash
-# Solution: Check JTAG/SWD connection
-openocd -f /usr/local/share/openocd/scripts/board/stm32ldiscovery.cfg -d
-# Should show successful connection
-```
-
-**Problem**: Flash operation timeout
-```bash
-# Solution: Increase timeout or check power supply
-# Verify device is powered and debugger is connected properly
-# Try erasing flash first: make flash
-```
-
-**Problem**: Code doesn't execute after flashing
-```bash
-# Solution: Verify app start address
-# Check: APP_START_ADDR_VAL = 0x08003000 in Makefile
-# Ensure bootloader is at 0x08000000
-```
-
-### Runtime Issues
-
-**Problem**: Game doesn't display on OLED
-```bash
-# Debug steps:
-# 1. Check SPI connections
-# 2. Verify display initialization in app_bsp.cpp
-# 3. Test with simple pattern in task_display.cpp
-# 4. Check I2C/SPI conflicts
-```
-
-**Problem**: Button inputs not responding
-```bash
-# Debug steps:
-# 1. Verify GPIO configuration in io_cfg.cpp
-# 2. Check button debouncing in button.cpp
-# 3. Test with LED feedback first
-# 4. Verify button interrupt handlers
-```
-
-**Problem**: System crashes or resets
-```bash
-# Debug steps:
-# 1. Check stack usage (.su files)
-# 2. Verify SRAM allocation in linker script
-# 3. Monitor task_life.cpp watchdog timer
-# 4. Check for buffer overflows in data structures
-```
-## Game Sampling
----
-**Start screen**
-<table>
-    <tr>
-        <p>
-            This is the starting screen when the user first flash the codes into the STM32L151
-        </p>
-        <div style="text-align: center;">
-            <img src="resources/images/fruit_game_ak_screen.png" alt="Game Start Screen" width="128" height="64" />
-        </div>
-    </tr>
-    <tr>
-        <p>
-           Please press any button on the starting screen to proceed. The screen will then switch to the MENU screen, where you can navigate through the options by toggling up and down using the MODE button. Select your desired option by pressing MODE
-        </p>
-        <div style="text-align: center;">
-            <img src="resources/images//fruit_game_menu_shift.gif" alt="Game Start Screen" width="128" height="64" />
-        </div>
-    </tr>
-    <tr>
-        <p>
-           On the MENU screen, when you select the Fruit option, the screen will transition to the Fruit Collecting Game. You have 30 seconds (timer displayed at the top right) to collect as many fruits as possible. Use the UP and DOWN buttons to move the basket. Collect only the good fruits, and avoid the bad ones. The points are on the Top Left.
-        </p>
-        <div style="text-align: center;">
-            <img src="resources/images/fruit_game_collection.png" alt="Game Start Screen" width="128" height="64" />
-        </div>
-    </tr>
-    <tr>
-        <p>
-           If you collect 3 good fruits, the game will automatically transition you to this screen.
-        </p>
-        <div style="text-align: center;">
-            <img src="resources/images/fruit_game_win.png" alt="Game Start Screen" width="128" height="64" />
-        </div>
-    </tr>
-    <tr>
-        <p>
-           If you collect 3 bad fruits, the game will automatically transition you to this screen.
-        </p>
-        <div style="text-align: center;">
-            <img src="resources/images/fruit_game_lose.png" alt="Game Start Screen" width="128" height="64" />
-        </div>
-    </tr>
-    <tr>
-        <p>
-           If your timer runs out, the game will automatically transition you to this screen.
-        </p>
-        <div style="text-align: center;">
-            <img src="resources/images/fruit_game_time_out.png" alt="Game Start Screen" width="128" height="64" />
-        </div>
-    </tr>
-</table>
-
-
-
 
 ## 📚 Additional Resources
 
