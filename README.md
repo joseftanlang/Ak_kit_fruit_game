@@ -1,9 +1,9 @@
 # AKKit Fruit Game - STM32L Embedded Game System
 
 <div align="center">
-  <a href="https://github.com/user-attachments/assets/ce27b314-382a-4511-a2dd-3ec7f697573fc">
+  <a href="https://github.com/user-attachments/assets/ce27b314-382a-4511-a2dd-3ec7f697573f">
     <video
-      src="https://github.com/user-attachments/assets/ce27b314-382a-4511-a2dd-3ec7f697573fc"
+      src="https://github.com/user-attachments/assets/ce27b314-382a-4511-a2dd-3ec7f697573f"
       controls
     ></video>
   </a>
