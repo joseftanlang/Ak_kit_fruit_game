@@ -1,1 +1,0 @@
-sources/app/game/archery_game/ar_game_meteoroid.cpp:74:6:void ar_game_meteoroid_handle(ak_msg_t*)	40	static

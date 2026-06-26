@@ -91,8 +91,9 @@ void scr_game_setting_handle(ak_msg_t* msg) {
 		BUZZER_PlaySound(BUZZER_SOUND_CLICK);
 	} break;
 
-	case AC_DISPLAY_BUTTON_MODE_LONG_PRESSED: {
-		APP_DBG_SIG("AC_DISPLAY_BUTTON_MODE_LONG_PRESSED\n");
+	case AC_DISPLAY_BUTTON_MODE_LONG_PRESSED:
+	case AC_DISPLAY_BUTTON_DOWN_LONG_PRESSED:
+	case AC_DISPLAY_BUTTON_UP_LONG_PRESSED: {
 		setting_save_and_exit();
 		BUZZER_PlaySound(BUZZER_SOUND_CLICK);
 	} break;

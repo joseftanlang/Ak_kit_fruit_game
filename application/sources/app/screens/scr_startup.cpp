@@ -1,6 +1,8 @@
+// Uncomment all comments for better graphic effects
+
 #include "scr_startup.h"
 
-#define STARTUP_ANIM_SIG           (AR_GAME_DEFINE_SIG + 40)
+#define STARTUP_ANIM_SIG           (AK_USER_DEFINE_SIG + 40)
 #define STARTUP_ANIM_INTERVAL_MS   (80)
 
 static uint8_t startup_anim_frame = 0;
@@ -10,9 +12,9 @@ static uint8_t logo_settled = 0;
 static uint8_t logo_bounce = 0;
 
 // simple particle sparkle (smaller, unobtrusive)
-#define STARTUP_PARTICLES 6
-typedef struct { int8_t x; int8_t y; int8_t vy; int8_t life; } particle_t;
-static particle_t particles[STARTUP_PARTICLES];
+// #define STARTUP_PARTICLES 6
+// typedef struct { int8_t x; int8_t y; int8_t vy; int8_t life; } particle_t;
+// static particle_t particles[STARTUP_PARTICLES];
 
 static void view_scr_startup();
 
@@ -33,19 +35,19 @@ view_screen_t scr_startup = {
 
 void view_scr_startup() {
 #define AK_LOGO_AXIS_X		(23)
-#define AK_LOGO_TEXT		(AK_LOGO_AXIS_X + 4)
+#define AK_LOGO_TEXT		(AK_LOGO_AXIS_X - 2)
 	view_render.clear();
 	view_render.setTextSize(1);
 	view_render.setTextColor(WHITE);
 
 	// Animated background: sparse randomized dots to suggest texture without lines
-	for (int y = 0; y < 64; y++) {
-		for (int x = 0; x < 128; x++) {
-			// lightweight hash to avoid straight diagonal lines
-			int v = (x * 13) ^ (y * 7) ^ (startup_anim_frame * 3);
-			if ((v & 31) == 0) view_render.drawPixel(x, y, WHITE);
-		}
-	}
+	// for (int y = 0; y < 64; y++) {
+	// 	for (int x = 0; x < 128; x++) {
+	// 		// lightweight hash to avoid straight diagonal lines
+	// 		int v = (x * 13) ^ (y * 7) ^ (startup_anim_frame * 3);
+	// 		if ((v & 31) == 0) view_render.drawPixel(x, y, WHITE);
+	// 	}
+	// }
 
 	// Logo slide-in with bounce easing
 	int logo_x = -48;
@@ -69,12 +71,12 @@ void view_scr_startup() {
 	}
 
 	// Particles / sparkles (background, very light)
-	for (int i = 0; i < STARTUP_PARTICLES; i++) {
-		if (particles[i].life > 0) {
-			// draw behind logo: single pixel, no trail
-			view_render.drawPixel(particles[i].x, particles[i].y, WHITE);
-		}
-	}
+	// for (int i = 0; i < STARTUP_PARTICLES; i++) {
+	// 	if (particles[i].life > 0) {
+	// 		// draw behind logo: single pixel, no trail
+	// 		view_render.drawPixel(particles[i].x, particles[i].y, WHITE);
+	// 	}
+	// }
 
 	// draw ASCII logo at logo_x
 	view_render.setCursor(logo_x, 3);
@@ -112,12 +114,12 @@ void scr_startup_handle(ak_msg_t* msg) {
 		view_render_display_on();
 		startup_anim_frame = 0;
 		// initialize particles
-		for (int i = 0; i < STARTUP_PARTICLES; i++) {
-			particles[i].x = (int8_t)(8 + (i * 9) % 110); // spread across width
-			particles[i].y = (int8_t)(10 + (i * 5) % 40); // start in upper half
-			particles[i].vy = (int8_t)(1 + (i % 3)); // slow downward speed
-			particles[i].life = (int8_t)(i % 6 + 4); // staggered initial life
-		}
+		// for (int i = 0; i < STARTUP_PARTICLES; i++) {
+		// 	particles[i].x = (int8_t)(8 + (i * 9) % 110); // spread across width
+		// 	particles[i].y = (int8_t)(10 + (i * 5) % 40); // start in upper half
+		// 	particles[i].vy = (int8_t)(1 + (i % 3)); // slow downward speed
+		// 	particles[i].life = (int8_t)(i % 6 + 4); // staggered initial life
+		// }
 		startup_phase = 0;
 		phase_counter = 0;
 		timer_set(AC_TASK_DISPLAY_ID, STARTUP_ANIM_SIG, STARTUP_ANIM_INTERVAL_MS, TIMER_PERIODIC);
@@ -134,21 +136,21 @@ void scr_startup_handle(ak_msg_t* msg) {
 	case STARTUP_ANIM_SIG: {
 		startup_anim_frame++;
 		// update particles: move active ones, respawn inactive ones smoothly
-		for (int i = 0; i < STARTUP_PARTICLES; i++) {
-			if (particles[i].life > 0) {
-				particles[i].y += particles[i].vy;
-				particles[i].life--;
-				if (particles[i].y > 58) particles[i].life = 0; // mark dead to respawn
-			} else {
-				// sparser respawn to make them less intrusive
-				if (((startup_anim_frame + i * 11) & 7) == 0) {
-					particles[i].x = (int8_t)(24 + ((i * 31 + startup_anim_frame * 5) % 80));
-					particles[i].y = (int8_t)(6 + ((i * 13 + startup_anim_frame) % 10));
-					particles[i].vy = 1; // slow
-					particles[i].life = (int8_t)(2 + (i % 4));
-				}
-			}
-		}
+		// for (int i = 0; i < STARTUP_PARTICLES; i++) {
+		// 	if (particles[i].life > 0) {
+		// 		particles[i].y += particles[i].vy;
+		// 		particles[i].life--;
+		// 		if (particles[i].y > 58) particles[i].life = 0; // mark dead to respawn
+		// 	} else {
+		// 		// sparser respawn to make them less intrusive
+		// 		if (((startup_anim_frame + i * 11) & 7) == 0) {
+		// 			particles[i].x = (int8_t)(24 + ((i * 31 + startup_anim_frame * 5) % 80));
+		// 			particles[i].y = (int8_t)(6 + ((i * 13 + startup_anim_frame) % 10));
+		// 			particles[i].vy = 1; // slow
+		// 			particles[i].life = (int8_t)(2 + (i % 4));
+		// 		}
+		// 	}
+		// }
 		// phase progression (timed by frames)
 		if (startup_phase == 0 && startup_anim_frame > 8) { startup_phase = 1; phase_counter = 1; }
 		if (startup_phase == 1) {

@@ -1,0 +1,3 @@
+sources/app/screens/scr_fruit_game.cpp:36:9:uint8_t fruit_game_is_overlap_x(int16_t, int16_t, int16_t, int16_t)	0	static
+sources/app/screens/scr_fruit_game.cpp:111:13:void view_scr_fruit_game()	48	static
+sources/app/screens/scr_fruit_game.cpp:241:6:void scr_fruit_game_handle(ak_msg_t*)	32	static

@@ -1,8 +1,6 @@
 ##############################################################################
 # @author: GaoKong
 # @date:   05/2/2017
-# @modified by: BuuPQ
-# @modified date: 05/05/2026
 ##############################################################################
 #NOTE:
 # Learn Makefiles at https://makefiletutorial.com/
@@ -17,12 +15,14 @@ SOC_FLASH_BYTES = 131072 # 128KB
 SOC_SRAM_BYTES = 16384	 # 16KB
 FLASH_BASE_ADDR_VAL = 0x08000000
 
+DEV_DEF = /dev/ttyUSB0
+
 # Name of build target ex: ak-base-kit-stm32l151-application.bin
-NAME_MODULE = archery-game
+NAME_MODULE = fruit_game
 PROJECT = $(NAME_MODULE)
 
-GCC_PATH		= /home/josef/Downloads/gcc-arm-none-eabi-10.3-2021.10-x86_64-linux/gcc-arm-none-eabi-10.3-2021.10
-PROGRAMER_PATH		= /home/josef/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin
+GCC_PATH		= ${HOME}/tools/gcc-arm-none-eabi-10.3-2021.10
+PROGRAMER_PATH		= ${HOME}/tools/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin
 OPENOCD_CFG_PATH	= /usr/local/share/openocd/scripts/board/stm32ldiscovery.cfg
 
 # App start address, that need sync with declare in linker file and interrupt vector table.
@@ -47,14 +47,25 @@ CONSOLE_BAUDRATE_DEF = -DSYS_CONSOLE_BAUDRATE=$(SYS_CONSOLE_BAUDRATE)
 #|------------|----------------------------------|--------------|---------|------------|-------------|
 OPTIMIZE_OPTION = -g -Os
 
+# RTOS development option.
+RTOS_DEV_OPTION = -URTOS_DEV_EN
+
 # Release build option, that is used in fatal function, restart system when fatal, and debug levels.
 RELEASE_OPTION = -URELEASE
 
 # Enable PIN (using led life) interrupt analyzer function [entry IRQ -> led life ON] and [exit IRQ -> led life OFF].
 IRQ_DEBUG_OPTION = -UAK_IO_IRQ_ANALYZER
 
+# Enable to using USB hareware configuration.
+USB_OPTION = -UUSING_USB_MOD
+
 # Interface compile option.
 IF_LINK_OPTION = -DIF_LINK_UART_EN
+IF_NETWORK_NRF24_OPTION = -UIF_NETWORK_NRF24_EN
+
+# Task compile option.
+TASK_ZIGBEE_OPTION = -UTASK_ZIGBEE_EN
+TASK_MBMASTER_OPTION = -DTASK_MBMASTER_EN
 
 # Include sources file
 include sources/ak/Makefile.mk
@@ -215,7 +226,7 @@ LDFLAGS	=	-Map=$(OBJECTS_DIR)/$(PROJECT).map	\
 		$(LIBC) $(LIBM) $(LIBSTDCPP_NANO) $(LIBGCC) $(LIBGCOV) $(LIBFPU) $(LIBRDPMON)
 
 all: create $(TARGET)
-	@$(MAKE) --no-print-directory info
+	@$(MAKE) --no-print-directory info 
 
 create:
 	$(Print) CREATE $(OBJECTS_DIR) folder

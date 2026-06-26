@@ -1,11 +1,3 @@
-<a id="readme-top"></a>
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![Unlicense License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
 # AKKit Fruit Game - STM32L Embedded Game System
 
 A sophisticated embedded game system running on the STM32L151CBT6 microcontroller, featuring an interactive fruit catching game and chart-based games with a custom LCD display driver and wireless networking capabilities.
@@ -104,9 +96,9 @@ The AKKit Fruit Game is a cutting-edge embedded systems project that combines ga
 ### System Overview
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                  AKKit Game System                       │
+│                  AKKit Game System                      │
 ├─────────────────────────────────────────────────────────┤
-│                   Application Layer                      │
+│                   Application Layer                     │
 │  ┌──────────────┬──────────────┬──────────────────────┐ │
 │  │ Game Engine  │ Screen Mgr   │ Task Manager         │ │
 │  │ - Fruit      │ - Idle       │ - Display Task       │ │
@@ -115,21 +107,21 @@ The AKKit Fruit Game is a cutting-edge embedded systems project that combines ga
 │  │              │ - Startup    │ - UART Interface     │ │
 │  └──────────────┴──────────────┴──────────────────────┘ │
 ├─────────────────────────────────────────────────────────┤
-│                    Driver Layer                          │
+│                    Driver Layer                         │
 │  ┌──────────────┬──────────────┬──────────────────────┐ │
 │  │ Display (GFX)│ Input (GPIO) │ Audio (Buzzer)       │ │
-│  │ - SSD1306    │ - Button     │ - Beep/Tone         │ │
+│  │ - SSD1306    │ - Button     │ - Beep/Tone          │ │
 │  │ - Bitmap     │ - Interrupt  │ - Volume Control     │ │
 │  │ - Adafruit   │ - Debounce   │                      │ │
 │  └──────────────┴──────────────┴──────────────────────┘ │
 ├─────────────────────────────────────────────────────────┤
-│                Platform & HAL Layer                      │
+│                Platform & HAL Layer                     │
 │  ┌──────────────┬──────────────┬──────────────────────┐ │
 │  │ GPIO Control │ SPI Interface│ UART/Serial          │ │
 │  │ Flash/EEPROM │ Networking   │ Timer/Clock          │ │
 │  └──────────────┴──────────────┴──────────────────────┘ │
 ├─────────────────────────────────────────────────────────┤
-│              STM32L151CBT6 Hardware                      │
+│              STM32L151CBT6 Hardware                     │
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -282,117 +274,6 @@ screen /dev/ttyUSB0 115200
 picocom -b 115200 /dev/ttyUSB0
 ```
 
----
-
-## 📁 Project Structure
-
-### Directory Overview
-```
-akkit-fruit-game/
-├── README.md                 # This file
-├── LICENSE                   # MIT License
-├── application/              # Main game application
-│   ├── Makefile             # Build configuration
-│   ├── stm32l_init.gdb      # GDB initialization script
-│   ├── build_ak-base-kit-stm32l151-application/
-│   │   ├── *.o              # Object files
-│   │   ├── *.d              # Dependency files
-│   │   ├── *.su             # Stack usage files
-│   │   ├── *.axf            # ELF executable
-│   │   ├── *.bin            # Binary firmware
-│   │   └── *.map            # Symbol map
-│   │
-│   └── sources/             # Application source code
-│       ├── app/             # Core game application
-│       │   ├── app.cpp/h           # Main app logic
-│       │   ├── app_bsp.cpp/h       # Board support package
-│       │   ├── app_data.cpp/h      # Application data structures
-│       │   ├── app_eeprom.cpp/h    # EEPROM management
-│       │   ├── app_non_clear_ram.cpp/h  # Persistent RAM
-│       │   ├── task_*.cpp/h        # Individual task implementations
-│       │   └── screens/            # UI screen implementations
-│       │       ├── scr_idle.cpp/h
-│       │       ├── scr_menu_game.cpp/h
-│       │       ├── scr_game_setting.cpp/h
-│       │       ├── scr_fruit_game.cpp/h
-│       │       ├── scr_charts_game.cpp/h
-│       │       ├── scr_game_over.cpp/h
-│       │       ├── scr_startup.cpp/h
-│       │       ├── screen_manager.cpp/h
-│       │       └── screens_bitmap.cpp/h
-│       │
-│       ├── common/          # Common utilities
-│       │   ├── fifo.cpp/h           # Ring buffer implementation
-│       │   ├── ring_buffer.cpp/h    # Alternative buffer
-│       │   ├── fsm.cpp/h            # Finite state machine
-│       │   ├── misc.cpp/h           # Miscellaneous utilities
-│       │   ├── message.cpp/h        # Message passing system
-│       │   └── ...
-│       │
-│       ├── driver/          # Hardware drivers
-│       │   ├── button.cpp/h         # Button input driver
-│       │   ├── led.cpp/h            # LED control
-│       │   ├── buzzer.cpp/h         # Buzzer audio driver
-│       │   ├── gpio_output.cpp/h    # GPIO management
-│       │   ├── Adafruit_GFX.cpp/h   # Graphics library
-│       │   ├── Adafruit_ssd1306syp.cpp/h  # OLED display driver
-│       │   ├── HardwareSerial.cpp/h # UART serial
-│       │   ├── SPI.cpp/h            # SPI interface
-│       │   ├── Print.cpp/h          # Print interface
-│       │   └── ...
-│       │
-│       ├── platform/        # Platform abstraction layer
-│       │   ├── platform.cpp/h       # Platform core
-│       │   ├── io_cfg.cpp/h         # I/O configuration
-│       │   └── ...
-│       │
-│       ├── sys/             # System layer
-│       │   ├── shell.cpp/h          # Command shell
-│       │   ├── log_queue.cpp/h      # Logging system
-│       │   ├── eeprom.cpp/h         # EEPROM control
-│       │   ├── flash.cpp/h          # Flash memory control
-│       │   └── ...
-│       │
-│       └── networks/        # Networking stack
-│           ├── link.cpp/h           # Link layer
-│           ├── link_phy.cpp/h       # Physical layer
-│           ├── link_mac.cpp/h       # MAC layer
-│           ├── link_hal.cpp/h       # Hardware abstraction
-│           ├── link_data.cpp/h      # Data layer
-│           └── ...
-│
-├── boot/                    # Bootloader firmware
-│   ├── Makefile
-│   ├── stm32l_init.gdb
-│   ├── build_ak-base-kit-stm32l151-boot/
-│   ├── doc/
-│   └── sources/
-│
-└── resources/              # Additional resources
-    ├── bin/               # Binary utilities
-    └── images/            # Game graphics and assets
-```
-
-### Key Source Files
-
-#### Application Core
-- [app/app.cpp](application/sources/app/app.cpp) - Main application entry point and main loop
-- [app/app_bsp.cpp](application/sources/app/app_bsp.cpp) - Board initialization and hardware setup
-- [app/app_data.cpp](application/sources/app/app_data.cpp) - Global application data structures
-
-#### Task System
-- [app/task_display.cpp](application/sources/app/task_display.cpp) - Display rendering and screen updates
-- [app/task_fw.cpp](application/sources/app/task_fw.cpp) - Firmware management and updates
-- [app/task_life.cpp](application/sources/app/task_life.cpp) - System monitoring and watchdog
-- [app/task_uart_if.cpp](application/sources/app/task_uart_if.cpp) - Serial communication handler
-
-#### Screen/UI System
-- [app/screen_manager.cpp](application/sources/app/screen_manager.cpp) - Screen lifecycle and routing
-- [app/screens/scr_idle.cpp](application/sources/app/screens/scr_idle.cpp) - Idle/home screen
-- [app/screens/scr_menu_game.cpp](application/sources/app/screens/scr_menu_game.cpp) - Game menu
-- [app/screens/scr_fruit_game.cpp](application/sources/app/screens/scr_fruit_game.cpp) - Fruit catching game logic
-
----
 
 ## 🎯 Game Modules
 
@@ -425,87 +306,6 @@ Analytics-based games with visual data representation:
 **Key Files**:
 - [app/screens/scr_charts_game.cpp](application/sources/app/screens/scr_charts_game.cpp)
 
-### Game Elements
-```
-Fruit Game Objects:
-├── Basket (Player-controlled element at bottom)
-├── Good Fruits (3 types - various fruits)
-├── Bad Fruits (3 types - rotten/poisoned fruits)
-└── UI Elements (Score display, Timer, Game status)
-```
-
----
-
-## 👨‍💻 Development
-
-### Code Style Guidelines
-
-**C++ Standard**: C++11 compatible
-**Naming Conventions**:
-- **Classes**: PascalCase (`FruitGame`, `ScreenManager`)
-- **Functions**: camelCase (`handleInput()`, `updateDisplay()`)
-- **Variables**: snake_case (`player_score`, `basket_x`)
-- **Constants**: UPPER_SNAKE_CASE (`MAX_FRUITS`, `SCREEN_WIDTH`)
-
-### Adding a New Game
-
-1. **Create Screen Class**:
-```cpp
-// application/sources/app/screens/scr_my_game.h
-#ifndef _SCR_MY_GAME_H_
-#define _SCR_MY_GAME_H_
-
-#include "screen_manager.h"
-
-class MyGameScreen : public BaseScreen {
-public:
-    MyGameScreen();
-    virtual void init();
-    virtual void display();
-    virtual void handleInput(ButtonEvent evt);
-    virtual void update();
-    virtual void stop();
-private:
-    int score;
-    // Game-specific state variables
-};
-
-#endif
-```
-
-2. **Implement Game Logic**:
-```cpp
-// application/sources/app/screens/scr_my_game.cpp
-#include "scr_my_game.h"
-
-MyGameScreen::MyGameScreen() : BaseScreen() { }
-
-void MyGameScreen::init() {
-    score = 0;
-    // Initialize game state
-}
-
-void MyGameScreen::display() {
-    // Render game on OLED
-}
-
-void MyGameScreen::update() {
-    // Update game physics and state
-}
-```
-
-3. **Register in Screen Manager**:
-Edit [screen_manager.cpp](application/sources/app/screen_manager.cpp) to add navigation to your screen.
-
-### Debugging
-
-#### Serial Console
-- Use a compatable USB-C cable (preferbaly short cable) to transmit data to and from the computer to device.
-- Connect via UART at 115200 baud to access the shell:
-```bash
-screen /dev/ttyUSB0 115200
-# Available commands vary based on shell.cpp implementation
-```
 
 #### GDB Debugging
 ```bash

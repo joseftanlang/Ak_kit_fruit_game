@@ -1,3 +1,0 @@
-sources/app/screens/scr_fruit_game.cpp:50:13:void fruit_game_spawn_fruit()	8	static
-sources/app/screens/scr_fruit_game.cpp:176:13:void view_scr_fruit_game()	40	static
-sources/app/screens/scr_fruit_game.cpp:237:6:void scr_fruit_game_handle(ak_msg_t*)	32	static

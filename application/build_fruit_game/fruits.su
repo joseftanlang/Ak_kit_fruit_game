@@ -1,0 +1,5 @@
+sources/app/game/fruits.cpp:30:13:void fruits_spawn()	8	static
+sources/app/game/fruits.cpp:36:6:void fruits_init()	0	static
+sources/app/game/fruits.cpp:40:17:fruit_object_t* fruits_get()	0	static
+sources/app/game/fruits.cpp:44:16:const uint8_t* fruits_bitmap_get(uint8_t)	0	static
+sources/app/game/fruits.cpp:48:6:void fruits_update()	24	static

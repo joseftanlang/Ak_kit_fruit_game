@@ -1,0 +1,4 @@
+sources/app/game/basket.cpp:5:6:void basket_init()	0	static
+sources/app/game/basket.cpp:9:6:void basket_left()	0	static
+sources/app/game/basket.cpp:17:6:void basket_right()	0	static
+sources/app/game/basket.cpp:25:9:int16_t basket_get_x()	0	static

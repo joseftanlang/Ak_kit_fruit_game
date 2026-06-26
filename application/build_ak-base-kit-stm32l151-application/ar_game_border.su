@@ -1,1 +1,0 @@
-sources/app/game/archery_game/ar_game_border.cpp:42:6:void ar_game_border_handle(ak_msg_t*)	16	static
